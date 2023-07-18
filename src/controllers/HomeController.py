@@ -29,9 +29,9 @@ def upload():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         
         # Predict the image using the trained YOLO model
-        print("-------------------------------------------")
         print(filename)
         analyze_image(filename)
+        print("-------------------------------------------")
 
         dimensions = get_file_dimensions(filename)
         size = os.path.getsize(os.path.join(app.config['UPLOAD_FOLDER'], filename))

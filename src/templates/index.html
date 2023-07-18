@@ -109,14 +109,6 @@
           <p>{{ input_file.extension }}</p>
         </div>
       </div>
-      <button onclick="clearInputFile()">Clear</button>
-
-        <script>
-            function clearInputFile() {
-                // Clear the input_file variable
-                {% set input_file = None %}
-            }
-        </script>
       {% endif %}
 
       <div class="flex items-center justify-center h-72 mb-4 rounded bg-gray-100">
