@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Upload Success</title>
+</head>
+
+<body>
+  <h1>Upload Success</h1>
+  <p>Filename: {{ input_file.filename }}</p>
+  <p>Dimensions: {{ input_file.dimensions }}</p>
+  <p>Size: {{ input_file.size }}</p>
+  <p>Extension: {{ input_file.extension }}</p>
+
+  <img src="{{ url_for('input_file.get_uploaded_image', filename=input_file.filename) }}" alt="Uploaded Image">
+
+  <!-- <h2>Analyzed Image</h2>
+  <img src="{{ url_for('input_file.get_analyzed_image', filename=input_file.filename) }}" alt="Analyzed Image"> -->
+</body>
+
+</html>
