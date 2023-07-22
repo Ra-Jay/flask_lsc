@@ -6,6 +6,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, curren
 from werkzeug.utils import secure_filename
 from helpers.db import insert_data
 from helpers.Utility import analyze_image, get_file_dimensions, get_file_extension, allowed_file
+from datetime import datetime
 
 input_file = Blueprint('input_file', __name__)
 
@@ -41,10 +42,9 @@ def upload():
         classification = torch.tensor(result[0].boxes.cls)
         accuracy = torch.tensor(result[0].boxes.conf) 
         error_rate = 1 - accuracy
-        file_name = result[0].path
 
         input_file = InputFile(dimensions, size, extension, filename)
-        output_file = OutputFile(classification, accuracy, error_rate, file_name)
+        output_file = OutputFile(classification, accuracy, error_rate, filename)
 
         # Save the image data to MongoDB
         image_data = {
@@ -63,8 +63,7 @@ def upload():
 def get_uploaded_image(filename):
     return send_from_directory('uploads', filename)
 
-@input_file.route('/analyzed/<filename>')
+@input_file.route('/analyzed/' + datetime.now().strftime('%Y-%m-%d_%H-%M') + '/<filename>')
 def get_analyzed_image(filename):
-    app = current_app._get_current_object()
-    return send_from_directory(app.config['ANALYZED_FOLDER'], filename)
+    return send_from_directory('analyzed/' + datetime.now().strftime('%Y-%m-%d_%H-%M'), filename)
 
