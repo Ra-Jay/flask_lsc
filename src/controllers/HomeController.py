@@ -1,7 +1,7 @@
 import torch
-import shutil
 import os
 from models.InputFile import InputFile
+from models.OutputFile import OutputFile
 from flask import Blueprint, render_template, request, redirect, url_for, current_app, send_from_directory
 from werkzeug.utils import secure_filename
 from helpers.db import insert_data
@@ -30,13 +30,21 @@ def upload():
         
         # Predict the image using the trained YOLO model
         print(filename)
-        analyze_image(filename)
-        print("-------------------------------------------")
+        result = analyze_image(filename)
+        print("result: ---------------------------------")
+        print(result[0].boxes)
 
         dimensions = get_file_dimensions(filename)
         size = os.path.getsize(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         extension = get_file_extension(filename)
+
+        classification = torch.tensor(result[0].boxes.cls)
+        accuracy = torch.tensor(result[0].boxes.conf) 
+        error_rate = 1 - accuracy
+        file_name = result[0].path
+
         input_file = InputFile(dimensions, size, extension, filename)
+        output_file = OutputFile(classification, accuracy, error_rate, file_name)
 
         # Save the image data to MongoDB
         image_data = {
@@ -47,7 +55,7 @@ def upload():
         }
         #insert_data(image_data)
 
-        return render_template('index.html', input_file=input_file)
+        return render_template('index.html', input_file=input_file, output_file=output_file)
 
     return render_template('index.html')
 

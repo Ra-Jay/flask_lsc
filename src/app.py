@@ -7,7 +7,6 @@ from config import MONGO_URI
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'src/uploads'
 app.config['MONGO_URI'] = MONGO_URI
-#app.config['ANALYZED_FOLDER'] = 'analyzed'
 app.config['ALLOWED_EXTENSIONS'] = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}  # Allowed file extensions
 
 # Initialize PyMongo extension

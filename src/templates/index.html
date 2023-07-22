@@ -111,9 +111,24 @@
       </div>
       {% endif %}
 
-      <div class="flex items-center justify-center h-72 mb-4 rounded bg-gray-100">
+      {% if output_file %}
+      <div class="flex items-start justify-left h-72 mb-4 rounded bg-gray-100 p-6">
+        <img src="{{ url_for('input_file.get_uploaded_image', filename=output_file.filename) }}" alt="Uploaded Image"
+          class="h-full w-auto mr-6">
 
+        <div class="grid grid-cols-2 gap-x-4">
+          <p class="font-bold">Classification: </p>
+          <p>{{ output_file.classification }}</p>
+          <p class="font-bold">Accuracy: </p>
+          <p>{{ output_file.accuracy }}</p>
+          <p class="font-bold">Error Rate: </p>
+          <p>{{ output_file.error_rate }}</p>
+          <p class="font-bold">Path: </p>
+          <p>{{ output_file.filename }}</p>
+        </div>
       </div>
+      {% endif %}
+
       <div class="flex items-center justify-center h-72 mb-4 rounded bg-gray-100">
 
       </div>
