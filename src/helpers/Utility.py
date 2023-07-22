@@ -3,6 +3,7 @@
 import os
 from flask import make_response, jsonify
 from ultralytics import YOLO
+from datetime import datetime
 
 def toDictionaryArray(data):
     x = []
@@ -23,13 +24,15 @@ def analyze_image(filename):
     from app import app
     model = YOLO('src\\best.pt')
     file_path = os.path.join('src\\uploads\\', filename)
-    result = model.predict(source=file_path, show=False, conf=0.20, save=True)
+    now = datetime.now()
+    date_time_str = now.strftime('%Y-%m-%d_%H-%M')
+    result = model.predict(source=file_path, show=False, conf=0.20, project="src/analyzed", name=date_time_str, save=True)
     print("-----------------------------------------------------")
     # analyzed_folder = "ANALYZED_FOLDER"
     # analyzed_file_path = os.path.join(analyzed_folder, filename)
     # os.makedirs(analyzed_folder, exist_ok=True)
     # shutil.move(file_path, analyzed_file_path)  
-    
+    result[0].path = date_time_str
     return result
 
 def allowed_file(filename):
