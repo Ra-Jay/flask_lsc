@@ -5,7 +5,7 @@ from models.OutputFile import OutputFile
 from flask import Blueprint, render_template, request, redirect, url_for, current_app, send_from_directory
 from werkzeug.utils import secure_filename
 from helpers.db import insert_data
-from helpers.Utility import analyze_image, get_file_dimensions, get_file_extension, allowed_file
+from helpers.Utility import analyze_image, get_file_dimensions, get_file_size, get_file_extension, allowed_file
 
 input_file = Blueprint('input_file', __name__)
 
@@ -35,7 +35,7 @@ def upload():
         print(result[0].boxes)
 
         dimensions = get_file_dimensions(file)
-        size = os.path.getsize(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        size = get_file_size(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         extension = get_file_extension(filename)
 
         classification = torch.tensor(result[0].boxes.cls)

@@ -46,5 +46,14 @@ def get_file_dimensions(filename):
         print(f"Error while getting dimensions: {e}")
         return None
 
+def get_file_size(filename):
+    try:
+        file_size = os.path.getsize(filename)
+        # Convert bytes to kilobytes (KB)
+        size_in_kb = file_size / 1024
+        return f"{size_in_kb:.2f} kB"
+    except Exception as e:
+        return f"Error while getting file size: {e}"
+
 def get_file_extension(filename):
     return filename.rsplit('.', 1)[1].lower()
