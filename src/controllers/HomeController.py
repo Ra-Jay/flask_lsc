@@ -5,7 +5,7 @@ from models.OutputFile import OutputFile
 from flask import Blueprint, render_template, request, redirect, url_for, current_app, send_from_directory
 from werkzeug.utils import secure_filename
 from helpers.db import insert_data
-from helpers.Utility import analyze_image, get_file_dimensions, get_file_extension, allowed_file
+from helpers.Utility import analyze_image, get_file_dimensions, get_file_size, get_file_extension, allowed_file
 
 input_file = Blueprint('input_file', __name__)
 
@@ -27,19 +27,19 @@ def upload():
         print("===============================")
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        
+
         # Predict the image using the trained YOLO model
         print(filename)
         result = analyze_image(filename)
         print("result: ---------------------------------")
         print(result[0].boxes)
 
-        dimensions = get_file_dimensions(filename)
-        size = os.path.getsize(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        dimensions = get_file_dimensions(file)
+        size = get_file_size(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         extension = get_file_extension(filename)
 
         classification = torch.tensor(result[0].boxes.cls)
-        accuracy = torch.tensor(result[0].boxes.conf) 
+        accuracy = torch.tensor(result[0].boxes.conf)
         error_rate = 1 - accuracy
         file_name = result[0].path
 
