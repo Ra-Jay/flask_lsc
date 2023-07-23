@@ -27,19 +27,19 @@ def upload():
         print("===============================")
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        
+
         # Predict the image using the trained YOLO model
         print(filename)
         result = analyze_image(filename)
         print("result: ---------------------------------")
         print(result[0].boxes)
 
-        dimensions = get_file_dimensions(filename)
+        dimensions = get_file_dimensions(file)
         size = os.path.getsize(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         extension = get_file_extension(filename)
 
         classification = torch.tensor(result[0].boxes.cls)
-        accuracy = torch.tensor(result[0].boxes.conf) 
+        accuracy = torch.tensor(result[0].boxes.conf)
         error_rate = 1 - accuracy
         file_name = result[0].path
 
