@@ -3,8 +3,10 @@ from controllers.HomeController import input_file
 from pathlib import Path
 from flask_pymongo import PyMongo
 from config import MONGO_URI
+import secrets
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)
 app.config['UPLOAD_FOLDER'] = 'src/uploads'
 app.config['ANALYZED_FOLDER'] = 'src/analyzed'
 app.config['MONGO_URI'] = MONGO_URI
