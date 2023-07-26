@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from controllers.HomeController import input_file
 from pathlib import Path
 from flask_pymongo import PyMongo
@@ -11,6 +11,26 @@ app.config['ALLOWED_EXTENSIONS'] = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}  
 
 # Initialize PyMongo extension
 mongo = PyMongo(app)
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/history')
+def history():
+    return render_template('history.html')
+
+@app.route('/archived')
+def archived():
+    return render_template('archived.html')
+
+@app.route('/helpandsupport')
+def helpandsupport():
+    return render_template('helpandsupport.html')
 
 app.register_blueprint(input_file, mongo=mongo)
 
