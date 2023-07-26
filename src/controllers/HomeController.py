@@ -4,7 +4,7 @@ from models.InputFile import InputFile
 from models.OutputFile import OutputFile
 from flask import Blueprint, render_template, request, redirect, url_for, current_app, send_from_directory
 from werkzeug.utils import secure_filename
-from helpers.db import insert_data
+from helpers.db import insert_predicted_image
 from datetime import datetime
 from helpers.Utility import analyze_image, get_file_dimensions, get_file_size, get_file_extension, allowed_file
 from flask import session
@@ -44,7 +44,6 @@ def upload():
             'extension': extension,
             'filename': filename
         }
-        #insert_data(image_data)
 
         return render_template('index.html', input_file=input_file)
 
@@ -67,14 +66,16 @@ def analyze():
         result = analyze_image(filename)
         print("result: ---------------------------------")
         print(result[0].boxes)
+        predicted_image_path = result[0].path
         
         classification = torch.tensor(result[0].boxes.cls)
         accuracy = torch.tensor(result[0].boxes.conf)
         error_rate = 1 - accuracy
         
         output_file = OutputFile(classification, accuracy, error_rate, filename)
+            
+        insert_predicted_image(predicted_image_path)
         
-        #Return a rendered template with the output file
         return render_template('index.html', input_file=input_file_data, output_file=output_file)
     
     return render_template('index.html')
