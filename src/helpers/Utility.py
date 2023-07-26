@@ -27,7 +27,7 @@ def analyze_image(filename):
     file_path = os.path.join('src\\uploads\\', filename)
     now = datetime.now()
     date_time_str = now.strftime('%Y-%m-%d_%H-%M')
-    result = model.predict(source=file_path, show=False, conf=0.20, project="src/analyzed", name=date_time_str, save=True)
+    result = model.predict(source=file_path, show=False, conf=0.20, project="src/predictions", name=date_time_str, save=True)
     print("-----------------------------------------------------")
     # analyzed_folder = "ANALYZED_FOLDER"
     # analyzed_file_path = os.path.join(analyzed_folder, filename)
