@@ -33,7 +33,7 @@ def analyze_image(filename):
     # analyzed_file_path = os.path.join(analyzed_folder, filename)
     # os.makedirs(analyzed_folder, exist_ok=True)
     # shutil.move(file_path, analyzed_file_path)
-    result[0].path = date_time_str
+    result[0].path = "src/predictions/" + date_time_str + "/" + filename
     
     return result
 
