@@ -66,15 +66,15 @@ def analyze():
         result = analyze_image(filename)
         print("result: ---------------------------------")
         print(result[0].boxes)
-        predicted_image_path = result[0].path
+        path = result[0].path
         
-        classification = torch.tensor(result[0].boxes.cls)
-        accuracy = torch.tensor(result[0].boxes.conf)
-        error_rate = 1 - accuracy
+        classification = torch.tensor(result[0].boxes.cls).item()
+        accuracy = round(torch.tensor(result[0].boxes.conf).item(),2 )
+        error_rate = round(1 - accuracy, 2)
         
-        output_file = OutputFile(classification, accuracy, error_rate, filename)
+        output_file = OutputFile(classification, accuracy, error_rate, path, filename)
             
-        insert_predicted_image(predicted_image_path)
+        # insert_predicted_image(predicted_image_path)
         
         return render_template('index.html', input_file=input_file_data, output_file=output_file)
     
