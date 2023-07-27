@@ -68,7 +68,7 @@ def analyze():
         print(result[0].boxes)
         path = result[0].path
         
-        classification = torch.tensor(result[0].boxes.cls).item()
+        classification = "No Good" if torch.tensor(result[0].boxes.cls).item() > 0 else "Good"
         accuracy = round(torch.tensor(result[0].boxes.conf).item(),2 )
         error_rate = round(1 - accuracy, 2)
         
