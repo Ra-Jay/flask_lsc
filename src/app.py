@@ -30,7 +30,7 @@ def archived():
 
 @app.route('/helpandsupport')
 def helpandsupport():
-    return render_template('helpandsupport.html')
+    return render_template('helpsupport.html')
 
 app.register_blueprint(input_file, mongo=mongo)
 
