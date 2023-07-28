@@ -32,7 +32,7 @@ def history():
 def archived():
     return render_template('archived.html')
 
-@app.route('/helpandsupport')
+@app.route('/help-and-support')
 def helpandsupport():
     return render_template('helpsupport.html')
 
