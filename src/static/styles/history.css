@@ -25,6 +25,12 @@ body {
   svg {
     display: block;
     text-align: center;
+    flex-shrink: 0;
+    width: 1.25rem; 
+    height: 1.25rem; 
+    color: #fff; 
+    transition-property: color; 
+    transition-duration: 0.75s;
   }
   
   a {
@@ -88,7 +94,7 @@ body {
   }
 
   .sub{
-    gap: 44rem;
+    gap: 40rem;
     display: flex;
     flex-wrap: 80%;
   }
@@ -96,7 +102,7 @@ body {
   .sub button {
     background-color: #4c6baf; 
     color: white;
-    padding: 3px 10px; 
+    padding: 3px 35px; 
     border: none;
     border-radius: 4px;
     cursor: pointer;
