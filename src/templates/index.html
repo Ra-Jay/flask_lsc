@@ -3,14 +3,12 @@
 
 <head>
   <title>Image Upload</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css" rel="stylesheet" />
 </head>
 
 <body>
-
   {% include 'sidebar.html' %}
-
   <div class="p-4 sm:ml-64">
     <div class="p-4">
       <div class="flex flex-col gap-x-1 items-left justify-between mb-4 h-48 rounded bg-gray-100 p-6">
@@ -49,8 +47,7 @@
       {% if output_file %}
       <div class="flex items-start justify-left h-72 mb-4 rounded bg-gray-100 p-6">
         <img src="{{ url_for('output_file.get_from_local', filename=output_file.filename) }}" alt="Predicted Image"
-          class="h-full w-auto mr-6">
-
+        class="h-full w-auto mr-6">     
         <div class="grid grid-cols-2 gap-x-4 w-min">
           <p class="font-bold">Classification: </p>
           <p>{{ output_file.classification }}</p>
@@ -83,11 +80,16 @@
     </div>
   </div>
 
-
-
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+  <script>
+    const sidebarIframe = document.getElementById('sidebar-iframe');
+    const sidebarToggle = document.querySelector('[data-drawer-target="default-sidebar"]');
 
+    sidebarToggle.addEventListener('click', () => {
+      sidebarIframe.classList.toggle('sidebar-open');
+    });
+  </script>
 </body>
 
 </html>
