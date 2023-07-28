@@ -7,10 +7,9 @@ __pycache__/
 *.so
 
 # folders
-runs/
 node_modules/
 package-lock.json
-src/predictions
+src/predictions/
 src/uploads/
 
 # Distribution / packaging
