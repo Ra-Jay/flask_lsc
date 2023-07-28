@@ -2,11 +2,20 @@
 <html>
 <head>
   <title>History</title>
-  <!-- Add your CSS and JavaScript dependencies here -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='history.css') }}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css" rel="stylesheet" />
 </head>
 <body>
+  <div class="sidebar">   
     {% include 'sidebar.html' %}
-  <!-- Your History content goes here -->
-  <h1>History Page</h1>
+  </div>
+  <div class="card">
+    <h1 class="text-3xl font-bold">IMAGES</h1>
+    <div class="sub">
+      <h2>All Images History</h2>
+      <button>Clear History</button>
+    </div>
+    <hr>
+  </div>
 </body>
 </html>

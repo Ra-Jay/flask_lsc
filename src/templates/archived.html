@@ -2,11 +2,18 @@
 <html>
 <head>
   <title>Archived</title>
-  <!-- Add your CSS and JavaScript dependencies here -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='archived.css') }}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css" rel="stylesheet" />
 </head>
 <body>
+  <div class="sidebar">   
     {% include 'sidebar.html' %}
-  <!-- Your Archived content goes here -->
+  </div>
+  <div class="card">
+    <h1 class="text-3xl font-bold">IMAGES</h1>
+    <h2>Archived Images</h2>
+    <hr>
+  </div>
   <h1>Archived Page</h1>
 </body>
 </html>

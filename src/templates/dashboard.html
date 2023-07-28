@@ -6,69 +6,15 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css" rel="stylesheet" />
 </head>
 <body>
+  <div class="sidebar">   
+    {% include 'sidebar.html' %}
+  </div>
 
-  {% include 'sidebar.html' %}
-
-  <div class="dashboard">
-    <div class="section-title">           
-      <h1>Overview</h2>
-      <hr>
-    </div>
-
-    <!-- Result Section -->
-    <div class="section">               
-      <h2>Result</h2>
-
-      <div class="card">
-        <h3>Card 1</h3>
-        <p>Good/No Good: Good</p>
-        <p>Percentage: 85%</p>
-        <p>Number of Images: 100</p>
-      </div>
-
-      <div class="card">
-        <h3>Card 2</h3>
-        <p>Good/No Good: No Good</p>
-        <p>Percentage: 15%</p>
-        <p>Number of Images: 15</p>
-      </div>
-
-      <div class="card">
-        <h3>Card 3</h3>
-        <p>Good/No Good: Good</p>
-        <p>Percentage: 92%</p>
-        <p>Number of Images: 80</p>
-      </div>
-    </div>
-
-    <!-- Recent Section -->
-    <div class="section">               
-      <h2>Recent</h2>
-
-      <div class="card">
-        <p>Name of Image: Image1.jpg</p>
-        <p>Scan Complete!</p>
-        <p>Result: Good</p>
-        <p>Error: 50%</p>
-        <p>Description: ...</p>
-      </div>
-
-      <div class="card">
-        <p>Name of Image: Image2.jpg</p>
-        <p>Scan Complete!</p>
-        <p>Result: No Good</p>
-        <p>Error: 40%</p>
-        <p>Description: ...</p>
-      </div>
-
-      <div class="card">
-        <p>Name of Image: Image3.jpg</p>
-        <p>Scan Complete!</p>
-        <p>Result: Good</p>
-        <p>Error: 60%</p>
-        <p>Description: ...</p>
-      </div>
-    </div>
+  <div class="card">
+    <h1 class="text-3xl font-bold">Overview</h1>
+    <hr>
+  </div>
+   
   </div>
 </body>
 </html>
