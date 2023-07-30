@@ -9,21 +9,24 @@
   <div class="sidebar">   
     {% include 'sidebar.html' %}
   </div>
-  <div class="history-card">
-    <h1 class="text-3xl font-bold">Help Topics</h1>
-    <hr>
-    <div class="card-group">
-      <div class="card">
-        <img src="{{ url_for('static', filename='images/img1.png') }}" class="icon" width="100px" height="100px" alt="Watch Video Icon">
-        <h2>Watch Video</h2>
-        <p>Find helpful video tutorials to guide you through the process.</p>
-      </div>
-      <div class="card">
-        <img src="{{ url_for('static', filename='images/img2.png') }}" class="icon1" width="80px" height="80px" alt="Get Started Icon">
-        <h2>Getting Started</h2>
-        <p>Learn how to get started with our product or service.</p>
+  <div class="p-4 sm:ml-64">
+    <div class="p-4">
+      <div class="flex items-start justify-left h-full mb-4 rounded bg-gray-100 p-6 flex-col">       
+        <h1 class="text-3xl font-bold mb-4">Help Topics</h1>
+        <div class="card-group">
+          <div class="card">
+            <img src="{{ url_for('static', filename='images/img1.png') }}" class="icon" width="100px" height="100px" alt="Watch Video Icon">
+            <h2>Watch Video</h2>
+            <p>Find helpful video tutorials to guide you through the process.</p>
+          </div>
+          <div class="card">
+            <img src="{{ url_for('static', filename='images/img2.png') }}" class="icon1" width="80px" height="80px" alt="Get Started Icon">
+            <h2>Getting Started</h2>
+            <p>Learn how to get started with our product or service.</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div> 
+  </div>
 </body>
 </html>
