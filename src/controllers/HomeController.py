@@ -44,8 +44,8 @@ def upload():
         }
         
         # Check if weight already exists in the database
-        if get_weights('LSCModel') is None:
-            insert_weights('src\\best.pt', 'LSCModel')
+        if get_weights('lsc_v1') is None:
+            insert_weights('src\\pre-trained_weights\\yolov8s\\lsc_v1.pt', 'lsc_v1')
         
         insert_input_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 

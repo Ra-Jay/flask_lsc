@@ -20,7 +20,7 @@ def insert_input_file(input_image_path):
         "size": current_input_file['size'], 
         "extension": current_input_file['extension'], 
         "data": Binary(input_image),
-        "weight_id": get_weights('LSCModel')['_id']
+        "weight_id": get_weights('lsc_v1')['_id']
     }
     mongo[MONGO_COLLECTION_INPUT_FILES].insert_one(image_document)
     
