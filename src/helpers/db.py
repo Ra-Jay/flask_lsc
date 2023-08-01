@@ -14,27 +14,27 @@ def insert_input_file(input_image_path):
     current_input_file = session.get('input_file')
     
     image_document = {
+        "_id": mongo[MONGO_COLLECTION_INPUT_FILES].count_documents({}) + 1,
         "name": current_input_file['filename'], 
         "dimensions": current_input_file['dimensions'], 
         "size": current_input_file['size'], 
         "extension": current_input_file['extension'], 
-        "data": Binary(input_image)
+        "data": Binary(input_image),
+        "weight_id": get_weights('LSCModel')['_id']
     }
     mongo[MONGO_COLLECTION_INPUT_FILES].insert_one(image_document)
     
 def get_input_file(image_name):
     mongo = MongoClient(MONGO_URI)[MONGO_DB]
-    document = mongo[MONGO_COLLECTION_INPUT_FILES].find_one({"name": image_name})
-    binary_data = document["data"]
-
-    stream = io.BytesIO(binary_data)
-
-    image = Image.open(stream)
-
+    return mongo[MONGO_COLLECTION_INPUT_FILES].find_one({"name": image_name})
+    
     # Save the image to a file
     # Not yet necessary saving the file locally, but for when history page is implemented
     # Can either be saving or returning a value/image to be displayed in the frontend
     # If saving, uncomment the following line but make sure to create the folder first
+    # binary_data = document["data"]
+    # stream = io.BytesIO(binary_data)
+    # image = Image.open(stream)
     # image.save('src/mongodb/input_images/' + image_name)
 
 def insert_output_file(predicted_image_path):
@@ -44,29 +44,30 @@ def insert_output_file(predicted_image_path):
     
     current_output_file = session.get('output_file')
     
+    # Add input id to output file
     image_document = {
+        "_id": mongo[MONGO_COLLECTION_OUTPUT_FILES].count_documents({}) + 1,
         "name": current_output_file['filename'],
         "classification": current_output_file['classification'],
         "accuracy": current_output_file['accuracy'],
         "error_rate": current_output_file['error_rate'],
-        "data": Binary(predicted_image)
+        "data": Binary(predicted_image),
+        "input_id": get_input_file(current_output_file['filename'])['_id']
     }
     mongo[MONGO_COLLECTION_OUTPUT_FILES].insert_one(image_document)
 
 # This method was for testing purposes to decode the binary data and save/display as an image.
 def get_output_file(image_name):
     mongo = MongoClient(MONGO_URI)[MONGO_DB]
-    document = mongo[MONGO_COLLECTION_OUTPUT_FILES].find_one({"name": image_name})
-    binary_data = document["data"]
-
-    stream = io.BytesIO(binary_data)
-
-    image = Image.open(stream)
-
+    return mongo[MONGO_COLLECTION_OUTPUT_FILES].find_one({"name": image_name})
+    
     # Save the image to a file
     # Not yet necessary saving the file locally, but for when history page is implemented
     # Can either be saving or returning a value/image to be displayed in the frontend
     # If saving, uncomment the following line but make sure to create the folder first
+    # binary_data = document["data"]
+    # stream = io.BytesIO(binary_data)
+    # image = Image.open(stream)
     # image.save('src/mongodb/predicted_images/' + image_name)
     
 def insert_weights(pt_file_path, model_name):
@@ -85,6 +86,7 @@ def insert_weights(pt_file_path, model_name):
     date_time_str = now.strftime('%Y-%m-%d_%H-%M')
     
     model_document = {
+        "_id": mongo[MONGO_COLLECTION_WEIGHTS].count_documents({}) + 1,
         "name": model_name, 
         "date_generated": date_time_str,
         "path": pt_file_path
