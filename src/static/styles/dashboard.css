@@ -67,22 +67,3 @@ body {
     cursor: pointer;
   }
 }
-
-.card {   
-    flex: 1 0 calc(33% - 40px);
-    max-width: 80%; 
-    background-color: #f9f9f9; 
-    border-radius: 10px; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    padding: 25px;
-    margin-left: 22%;  
-    margin-right: 25px;
-    margin-top: 25px;
-  }
-  
-  .card hr {
-    border: none;
-    border-top: 4px solid rgb(24, 24, 24);
-    margin: 20px 0; 
-  }
