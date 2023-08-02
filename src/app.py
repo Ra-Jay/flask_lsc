@@ -5,6 +5,9 @@ from pathlib import Path
 from flask_pymongo import PyMongo
 from config import MONGO_URI
 import secrets
+from flask import session
+
+from helpers.db import get_weights, insert_weights
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
@@ -22,6 +25,17 @@ def dashboard():
 
 @app.route('/')
 def index():
+    # Pre-defined weights
+    loaded_weights = get_weights('lsc_v1')
+    
+    if loaded_weights is None:
+        insert_weights('src\\pre-trained_weights\\yolov8s\\lsc_v1.pt', 'lsc_v1')
+    
+    session['loaded_weights'] = {
+        'name': loaded_weights['name'] or 'lsc_v1',
+        'path': loaded_weights['path'] or 'src\\pre-trained_weights\\yolov8s\\lsc_v1.pt'
+    }
+    
     return render_template('index.html')
 
 @app.route('/history')
