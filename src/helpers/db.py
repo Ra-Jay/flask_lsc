@@ -20,7 +20,10 @@ def insert_input_file(input_image_path):
         "size": current_input_file['size'], 
         "extension": current_input_file['extension'], 
         "data": Binary(input_image),
-        "weight_id": get_weights('lsc_v1')['_id']
+        "weight_id": get_weights('lsc_v1')['_id'],
+        "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "deleted_at": None
     }
     mongo[MONGO_COLLECTION_INPUT_FILES].insert_one(image_document)
     
@@ -52,7 +55,10 @@ def insert_output_file(predicted_image_path):
         "accuracy": current_output_file['accuracy'],
         "error_rate": current_output_file['error_rate'],
         "data": Binary(predicted_image),
-        "input_id": get_input_file(current_output_file['filename'])['_id']
+        "input_id": get_input_file(current_output_file['filename'])['_id'],
+        "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "deleted_at": None
     }
     mongo[MONGO_COLLECTION_OUTPUT_FILES].insert_one(image_document)
 
@@ -82,14 +88,18 @@ def insert_weights(pt_file_path, model_name):
     # bson_model_data = Binary(pt_model_data)
 
     # Create a document for the model and insert it into the MongoDB collection
-    now = datetime.now()
-    date_time_str = now.strftime('%Y-%m-%d_%H-%M')
     
+    # trained_at here was the date the model was trained
+    # This weight was copied from LSC_Inspector_Training_Model.ipynb in the repository
+    # https://github.com/kerrlabajo/cs346-ml.net-lsc-inspector/tree/enhancement/refactor/LSC_Intellysis/runs/detect/train7/weights/best.pt
     model_document = {
         "_id": mongo[MONGO_COLLECTION_WEIGHTS].count_documents({}) + 1,
-        "name": model_name, 
-        "date_generated": date_time_str,
-        "path": pt_file_path
+        "name": model_name,
+        "path": pt_file_path,
+        "trained_at": "2023-05-18_08-46",
+        "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "deleted_at": None
     }
     mongo[MONGO_COLLECTION_WEIGHTS].insert_one(model_document)
 
