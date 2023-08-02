@@ -23,7 +23,7 @@ def sendResponse(result):
 
 def analyze_image(filename):
     from app import app
-    model = YOLO('src\\best.pt')
+    model = YOLO('src\\pre-trained_weights\\yolov8s\\lsc_v1.pt')
     file_path = os.path.join('src\\uploads\\', filename)
     now = datetime.now()
     date_time_str = now.strftime('%Y-%m-%d_%H-%M')

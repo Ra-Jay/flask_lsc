@@ -4,7 +4,7 @@ from models.InputFile import InputFile
 from models.OutputFile import OutputFile
 from flask import Blueprint, render_template, request, redirect, url_for, current_app, send_from_directory
 from werkzeug.utils import secure_filename
-from helpers.db import insert_predicted_image
+from helpers.db import insert_input_file, get_input_file, insert_output_file, get_output_file, insert_weights, get_weights
 from datetime import datetime
 from helpers.Utility import analyze_image, get_file_dimensions, get_file_size, get_file_extension, allowed_file
 from flask import session
@@ -36,14 +36,18 @@ def upload():
         extension = get_file_extension(filename)
 
         input_file = InputFile(dimensions, size, extension, filename)
-
-        # Save the image data to MongoDB
         session['input_file'] = {
             'dimensions': dimensions,
             'size': size,
             'extension': extension,
             'filename': filename
         }
+        
+        # Check if weight already exists in the database
+        if get_weights('lsc_v1') is None:
+            insert_weights('src\\pre-trained_weights\\yolov8s\\lsc_v1.pt', 'lsc_v1')
+        
+        insert_input_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         return render_template('index.html', input_file=input_file)
 
@@ -73,8 +77,15 @@ def analyze():
         error_rate = round(1 - accuracy, 2)
         
         output_file = OutputFile(classification, accuracy, error_rate, path, filename)
-            
-        # insert_predicted_image(predicted_image_path)
+        session['output_file'] = {
+            'classification': classification,
+            'accuracy': accuracy,
+            'error_rate': error_rate,
+            'path': path,
+            'filename': filename
+        }
+        
+        insert_output_file(path)
         
         return render_template('index.html', input_file=input_file_data, output_file=output_file)
     
