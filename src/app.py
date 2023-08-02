@@ -12,7 +12,7 @@ from helpers.db import get_weights, insert_weights
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 app.config['UPLOAD_FOLDER'] = 'src/uploads'
-app.config['ANALYZED_FOLDER'] = 'src/analyzed'
+app.config['PREDICTIONS_FOLDER'] = 'src/predictions'
 app.config['MONGO_URI'] = MONGO_URI
 app.config['ALLOWED_EXTENSIONS'] = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}  # Allowed file extensions
 
