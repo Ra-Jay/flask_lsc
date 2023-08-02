@@ -76,7 +76,7 @@ def get_output_file(image_name):
     # image = Image.open(stream)
     # image.save('src/mongodb/predicted_images/' + image_name)
     
-def insert_weights(pt_file_path, model_name):
+def insert_weights(weights_file_path, filename):
     mongo = MongoClient(MONGO_URI)[MONGO_DB]
     
     # best.pt file is too large (22mb) to be stored in MongoDB (16mb maximum), so we will store its path instead
@@ -94,8 +94,8 @@ def insert_weights(pt_file_path, model_name):
     # https://github.com/kerrlabajo/cs346-ml.net-lsc-inspector/tree/enhancement/refactor/LSC_Intellysis/runs/detect/train7/weights/best.pt
     model_document = {
         "_id": mongo[MONGO_COLLECTION_WEIGHTS].count_documents({}) + 1,
-        "name": model_name,
-        "path": pt_file_path,
+        "name": filename,
+        "path": weights_file_path,
         "trained_at": "2023-05-18_08-46",
         "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
