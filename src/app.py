@@ -1,3 +1,5 @@
+from datetime import datetime
+import redis
 from flask import Flask, render_template
 from controllers.HomeController import input_file, output_file
 
@@ -8,9 +10,24 @@ import secrets
 from flask import session
 
 from helpers.db import get_weights, insert_weights
+from models.Weights import Weights
+
+# flask.session override
+# temporary solution for client-side's session limited size 4kb(too small)
+# instead of hosting session from client-side, host it from server-side
+# using redis for session server = localhost:6379
+# basically, using wsl2 or ubuntu to install redis-server
+# https://redis.io/docs/getting-started/installation/install-redis-on-windows/
+# and then re-run the program
+from flask_kvsession import KVSessionExtension
+from simplekv.memory.redisstore import RedisStore
+
+store = RedisStore(redis.StrictRedis())
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
+KVSessionExtension(store, app)
+
 app.config['UPLOAD_FOLDER'] = 'src/uploads'
 app.config['PREDICTIONS_FOLDER'] = 'src/predictions'
 app.config['MONGO_URI'] = MONGO_URI
