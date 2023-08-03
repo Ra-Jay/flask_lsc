@@ -29,12 +29,32 @@ def index():
     loaded_weights = get_weights('lsc_v1')
     
     if loaded_weights is None:
-        insert_weights('src\\pre-trained_weights\\yolov8s\\lsc_v1.pt', 'lsc_v1')
-    
-    session['loaded_weights'] = {
-        'name': loaded_weights['name'] or 'lsc_v1',
-        'path': loaded_weights['path'] or 'src\\pre-trained_weights\\yolov8s\\lsc_v1.pt'
-    }
+        current_date = datetime.now().strftime('%Y-%m-%d %H:%M')
+        
+        weights = Weights(
+            'lsc_v1',
+            'src\\pre-trained_weights\\yolov8s\\lsc_v1.pt',
+            "2023-05-18 08:46",
+            current_date,
+            current_date,
+            None
+        )
+        
+        session['loaded_weights'] = weights.__dict__
+        
+        added_weights = insert_weights()
+        
+        session['loaded_weights']['_id'] = added_weights.inserted_id
+    else:
+        session['loaded_weights'] = {
+            '_id': loaded_weights['_id'],
+            'name': loaded_weights['name'],
+            'path': loaded_weights['path'],
+            'trained_at': loaded_weights['trained_at'],
+            'created_at': loaded_weights['created_at'],
+            'updated_at': loaded_weights['updated_at'],
+            'deleted_at': loaded_weights['deleted_at']
+        }
     
     return render_template('index.html')
 
