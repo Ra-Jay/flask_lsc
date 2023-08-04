@@ -23,12 +23,12 @@
 
       {% if input_file %}
       <div class="flex items-start justify-left h-72 mb-4 rounded bg-gray-100 p-6">
-        <img src="{{ url_for('input_file.get_from_local', filename=input_file.filename) }}" alt="Uploaded Image"
+        <img src="{{ url_for('input_file.get_from_local', filename=input_file.name) }}" alt="Uploaded Image"
           class="h-full w-80 mr-6">
 
         <div class="grid grid-cols-2 gap-x-4">
           <p class="font-bold">Filename: </p>
-          <p>{{ input_file.filename }}</p>
+          <p>{{ input_file.name }}</p>
           <p class="font-bold">Dimensions: </p>
           <p>{{ input_file.dimensions }}</p>
           <p class="font-bold">Size: </p>
@@ -46,7 +46,7 @@
 
       {% if output_file %}
       <div class="flex items-start justify-left h-72 mb-4 rounded bg-gray-100 p-6">
-        <img src="{{ url_for('output_file.get_from_local', filename=output_file.filename) }}" alt="Predicted Image"
+        <img src="{{ url_for('output_file.get_from_local', filename=output_file.name, date=session['output_date']) }}" alt="Predicted Image"
         class="h-full w-80 mr-6">     
         <div class="grid grid-cols-2 gap-x-4 w-min">
           <p class="font-bold">Classification: </p>
@@ -56,12 +56,8 @@
           <p class="font-bold">Error Rate: </p>
           <p>{{ output_file.error_rate }}</p>
           <p class="font-bold">Path: </p>
-          <p>{{ output_file.path }}</p>
+          <p>src{{ url_for('output_file.get_from_local', filename=output_file.name, date=session['output_date']) }}</p>
         </div>
-        <form method="POST" enctype="multipart/form-data" class="flex justify-between">
-          <input type="submit" value="Export"
-            class="w-24 py-2 text-white bg-green-400 cursor-pointer hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm">
-        </form>
       </div>
       {% endif %}
 
