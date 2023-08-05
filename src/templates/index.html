@@ -13,7 +13,7 @@
     <div class="p-4">
       <div class="flex flex-col gap-x-1 items-left justify-between mb-4 h-48 rounded bg-gray-100 p-6">
         <h1 class="text-5xl font-bold">LSC Quality Inspector</h1>
-        <form method="POST" enctype="multipart/form-data" action="{{ url_for('input_file.upload') }}"
+        <form method="POST" enctype="multipart/form-data" action="{{ url_for('input_file.insert_input_file') }}"
           class="flex justify-between">
           <input type="file" name="file" accept=".txt, .pdf, .png, .jpg, .jpeg, .gif">
           <input type="submit" value="Upload"
@@ -25,7 +25,7 @@
         <h1 class="text-xl font-bold">Uploaded File</h1>
         {% if input_file %}
         <div class="flex items-start justify-left">
-          <img src="{{ url_for('input_file.get_from_local', filename=input_file.name) }}" alt="Uploaded Image"
+          <img src="{{ url_for('input_file.get_file', filename=input_file.name) }}" alt="Uploaded Image"
             class="h-full w-80 mr-6">
 
           <div class="grid grid-cols-2 gap-x-4">
@@ -38,10 +38,10 @@
             <p class="font-bold">Extension: </p>
             <p>{{ input_file.extension }}</p>
           </div>
-          <form method="POST" enctype="multipart/form-data" action="{{ url_for('input_file.analyze') }}"
+          <form method="POST" enctype="multipart/form-data" action="{{ url_for('input_file.insert_output_file') }}"
             class="flex justify-between absolute mr-6 right-0">
             <input type="submit" value="Analyze"
-              class="w-24 py-2 text-white bg-green-400 cursor-pointer hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm">
+              class="w-24 py-2.5 text-white bg-green-400 cursor-pointer hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm">
           </form>
         </div>
         {% else %}
@@ -68,7 +68,7 @@
         <h1  class="text-xl font-bold">Output File</h1>
         {% if output_file %}
         <div class="flex">
-          <img src="{{ url_for('output_file.get_from_local', filename=output_file.name, date=session['output_date']) }}" alt="Predicted Image"
+          <img src="{{ url_for('output_file.get_file', filename=output_file.name, date=session['output_date']) }}" alt="Predicted Image"
           class="h-full w-80 mr-6">     
           <div class="flex gap-x-4 w-min">
             <div>
@@ -81,7 +81,7 @@
               <p class="{{ 'text-green-500' if output_file.classification == 'Good' else 'text-red-500' }}">{{ output_file.classification }}</p>
               <p>{{ output_file.accuracy }}</p>
               <p>{{ output_file.error_rate }}</p>
-              <p>src{{ url_for('output_file.get_from_local', filename=output_file.name, date=session['output_date']) }}</p>
+              <p>src{{ url_for('output_file.get_file', filename=output_file.name, date=session['output_date']) }}</p>
             </div>
           </div>
         </div>

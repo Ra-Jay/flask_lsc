@@ -17,7 +17,7 @@ input_file = Blueprint('input_file', __name__)
 output_file = Blueprint('output_file', __name__)
 
 @input_file.route('/upload', methods=['GET', 'POST'])
-def upload():
+def insert_input_file():
     from app import app
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -136,7 +136,7 @@ def upload():
     return render_template('index.html')
 
 @input_file.route('/analyze', methods=['GET', 'POST'])
-def analyze():
+def insert_output_file():
     from app import app
     if request.method == 'POST':
         input_file_data = session.get('input_file')
@@ -254,9 +254,9 @@ def analyze():
     return render_template('index.html')
 
 @input_file.route('/uploads/<filename>', methods=['GET'])
-def get_from_local(filename):
+def get_file(filename):
     return send_from_directory('uploads', filename)
 
 @output_file.route('/predictions/' + '<date>' + '/<filename>', methods=['GET'])
-def get_from_local(filename, date):
+def get_file(filename, date):
     return send_from_directory('predictions/' + date + '/', filename)
