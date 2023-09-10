@@ -13,7 +13,7 @@
     <div class="p-4">
       <div class="flex flex-col gap-x-1 items-left justify-between mb-4 h-48 rounded bg-gray-100 p-6">
         <h1 class="text-5xl font-bold">LSC Quality Inspector</h1>
-        <form method="POST" enctype="multipart/form-data" action="{{ url_for('input_file.insert_input_file') }}"
+        <form method="POST" enctype="multipart/form-data" action="{{ url_for('input_file.insert_inputFile') }}"
           class="flex justify-between">
           <input type="file" name="file" accept=".txt, .pdf, .png, .jpg, .jpeg, .gif">
           <input type="submit" value="Upload"
@@ -38,7 +38,7 @@
             <p class="font-bold">Extension: </p>
             <p>{{ input_file.extension }}</p>
           </div>
-          <form method="POST" enctype="multipart/form-data" action="{{ url_for('input_file.insert_output_file') }}"
+          <form method="POST" enctype="multipart/form-data" action="{{ url_for('input_file.insert_outputFile') }}"
             class="flex justify-between absolute mr-6 right-0">
             <input type="submit" value="Analyze"
               class="w-24 py-2.5 text-white bg-green-400 cursor-pointer hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm">

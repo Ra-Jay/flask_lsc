@@ -17,7 +17,7 @@ input_file = Blueprint('input_file', __name__)
 output_file = Blueprint('output_file', __name__)
 
 @input_file.route('/upload', methods=['GET', 'POST'])
-def insert_input_file():
+def insert_inputFile():
     from app import app
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -136,7 +136,7 @@ def insert_input_file():
     return render_template('index.html')
 
 @input_file.route('/analyze', methods=['GET', 'POST'])
-def insert_output_file():
+def insert_outputFile():
     from app import app
     if request.method == 'POST':
         input_file_data = session.get('input_file')
